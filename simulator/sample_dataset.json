@@ -1,0 +1,21 @@
+{
+  "description": "Hand-built sample telemetry standing in for real sensor node output. Covers every Decision Engine scenario from the Backend spec so a demo run reliably shows normal readings, a low-battery warning, a vibration-only event, a motion-only event, and a full intrusion alert.",
+  "nodes": ["node-01", "node-02", "node-03"],
+  "packets": [
+    { "node_id": "node-01", "motion": false, "vibration": false, "temperature": 24.1, "sound_level": 28.0, "battery": 91, "offset_seconds": 0,   "note": "normal operation" },
+    { "node_id": "node-02", "motion": false, "vibration": false, "temperature": 22.6, "sound_level": 25.5, "battery": 76, "offset_seconds": 2,   "note": "normal operation" },
+    { "node_id": "node-03", "motion": false, "vibration": false, "temperature": 26.3, "sound_level": 30.2, "battery": 84, "offset_seconds": 4,   "note": "normal operation" },
+
+    { "node_id": "node-01", "motion": false, "vibration": true,  "temperature": 24.3, "sound_level": 33.0, "battery": 90, "offset_seconds": 20,  "note": "equipment disturbance (vibration only) — low priority" },
+    { "node_id": "node-02", "motion": true,  "vibration": false, "temperature": 22.4, "sound_level": 34.0, "battery": 75, "offset_seconds": 25,  "note": "possible human movement (motion only) — low priority" },
+
+    { "node_id": "node-03", "motion": false, "vibration": false, "temperature": 27.0, "sound_level": 29.0, "battery": 18, "offset_seconds": 40,  "note": "low battery — maintenance alert" },
+
+    { "node_id": "node-01", "motion": true,  "vibration": true,  "temperature": 25.5, "sound_level": 82.0, "battery": 88, "offset_seconds": 60,  "note": "potential intrusion — motion + vibration + high sound, HIGH severity" },
+
+    { "node_id": "node-02", "motion": false, "vibration": false, "temperature": 22.9, "sound_level": 26.0, "battery": 74, "offset_seconds": 80,  "note": "back to normal operation" },
+    { "node_id": "node-01", "motion": false, "vibration": false, "temperature": 25.0, "sound_level": 27.0, "battery": 87, "offset_seconds": 100, "note": "back to normal operation" },
+    { "node_id": "node-03", "motion": false, "vibration": false, "temperature": 27.2, "sound_level": 28.5, "battery": 17, "offset_seconds": 100, "note": "still low battery" }
+  ],
+  "notes": "node-03's last packet is deliberately the oldest of the three nodes — after loading, wait past NODE_OFFLINE_TIMEOUT_SECONDS (default 120s) without running the live simulator, and node-03 will flip to Offline on the dashboard so you can see that path too."
+}

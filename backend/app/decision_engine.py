@@ -13,17 +13,16 @@ def evaluate_reading(db: Session, node: models.Node, reading: models.SensorReadi
     """
     motion = reading.motion
     vibration = reading.vibration
-    sound = reading.sound_level or 0.0
-    high_sound = sound >= settings.HIGH_SOUND_THRESHOLD
+    ir_detected = reading.ir_detected
 
     event_type = None
     severity = None
 
-    if motion and vibration and high_sound:
+    if motion and vibration and ir_detected:
         # Scenario 2 — Potential intrusion: all three independent sensors agree
         event_type = "potential_intrusion"
         severity = models.AlertSeverity.HIGH
-    elif motion and not vibration and not high_sound:
+    elif motion and not vibration and not ir_detected:
         # Scenario 1 — Possible human movement, low confidence alone
         event_type = "motion_detected"
         severity = models.AlertSeverity.LOW

@@ -25,7 +25,7 @@ class Settings:
 
     # Alert thresholds
     LOW_BATTERY_THRESHOLD: int = int(os.getenv("LOW_BATTERY_THRESHOLD", "20"))
-    HIGH_SOUND_THRESHOLD: float = float(os.getenv("HIGH_SOUND_THRESHOLD", "75.0"))
+    
     HIGH_TEMP_THRESHOLD: float = float(os.getenv("HIGH_TEMP_THRESHOLD", "45.0"))
 
 

@@ -28,7 +28,7 @@ class TelemetryPacket(BaseModel):
     motion: bool = False
     vibration: bool = False
     temperature: Optional[float] = None
-    sound_level: Optional[float] = None
+    ir_detected: Optional[float] = None
     battery: int = Field(ge=0, le=100)
     timestamp: datetime
     checksum: Optional[str] = None  # hex CRC/HMAC — verified against payload before storage
@@ -40,13 +40,7 @@ class TelemetryPacket(BaseModel):
             raise ValueError("temperature out of plausible sensor range")
         return v
 
-    @field_validator("sound_level")
-    @classmethod
-    def sane_sound(cls, v):
-        if v is not None and not (0.0 <= v <= 200.0):
-            raise ValueError("sound_level out of plausible sensor range")
-        return v
-
+    
 
 # ---------- API response shapes ----------
 
@@ -66,7 +60,7 @@ class TelemetryOut(BaseModel):
     motion: bool
     vibration: bool
     temperature: Optional[float]
-    sound_level: Optional[float]
+    ir_detected: bool
     battery: Optional[int]
     timestamp: datetime
 

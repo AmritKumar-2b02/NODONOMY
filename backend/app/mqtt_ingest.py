@@ -59,7 +59,7 @@ def ingest_packet(db: Session, raw: dict) -> tuple[models.Node, models.SensorRea
         motion=packet.motion,
         vibration=packet.vibration,
         temperature=packet.temperature,
-        sound_level=packet.sound_level,
+        ir_detected=packet.ir_detected,
         battery=packet.battery,
         timestamp=packet.timestamp,
     )

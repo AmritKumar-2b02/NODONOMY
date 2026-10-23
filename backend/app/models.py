@@ -60,7 +60,7 @@ class SensorReading(Base):
     motion = Column(Boolean, default=False)
     vibration = Column(Boolean, default=False)
     temperature = Column(Float, nullable=True)
-    sound_level = Column(Float, nullable=True)
+    ir_detected = Column(Boolean, nullable=False, default=False)
     battery = Column(Integer, nullable=True)
     timestamp = Column(DateTime, nullable=False)  # from the packet itself
     received_at = Column(DateTime, default=utcnow)  # when the module ingested it

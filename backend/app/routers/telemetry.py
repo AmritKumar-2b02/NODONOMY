@@ -13,7 +13,7 @@ from ..security import get_current_username
 
 router = APIRouter(prefix="/telemetry", tags=["telemetry"])
 
-VALID_TAGS = {"temperature", "sound_level", "vibration", "motion", "battery"}
+VALID_TAGS = {"temperature", "ir_detected", "vibration", "motion", "battery"}
 
 
 @router.get("/latest/{node_id}", response_model=TelemetryOut, dependencies=[Depends(get_current_username)])
@@ -49,7 +49,7 @@ def historical_telemetry(
 def search_telemetry(
     start: Optional[datetime] = Query(None, description="Start of the time window (ISO 8601)"),
     end: Optional[datetime] = Query(None, description="End of the time window (ISO 8601)"),
-    tags: Optional[str] = Query(None, description="Comma-separated sensor fields: temperature,sound_level,vibration,motion,battery"),
+    tags: Optional[str] = Query(None, description="Comma-separated sensor fields: temperature,ir_detected,vibration,motion,battery"),
     limit: int = Query(500, le=2000),
     db: Session = Depends(get_db),
 ):
